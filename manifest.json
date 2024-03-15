@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "OZZI: IOC Search",
+  "description": "Search standard IOCs through common OSINT platforms",
+  "version": "0.1.18",
+  "author": "Moohorns",
+  "icons": {
+    "48": "icon.png"
+  },
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "OZZI: IOC Search"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{fb578cc8-e12e-4bb5-a3d5-4af7588db79e}"
+    },
+    "edge": {
+      "id": "{776ab241-e287-4fde-b024-86ce1457aaa8}"
+    }
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "MacCtrl+Shift+F"
+      },
+      "description": "Opens the extension popup"
+    }
+  }
+}

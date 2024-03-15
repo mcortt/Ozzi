@@ -1,0 +1,51 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e7ceb5;
+    background: #653024;
+    padding: 1rem;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+}
+
+#logo {
+    width: 3rem; 
+    height: 3rem; 
+    margin-right: 1rem;
+}
+
+#txtSearch {
+    color: #653024;
+    background-color: #e7ceb5;
+}
+
+#txtSearch::placeholder, #txtSearch::selection {
+    color: inherit;
+    background-color: inherit;
+}
+
+.only-button {
+    border: 0.0625rem solid;
+    font-size: 0.750rem;
+    padding: 0.25rem 0.3125rem;
+    width: 6.875rem;
+    margin-left: 1.000rem;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    vertical-align: top;
+    text-decoration: none;
+}
+
+.only-button:hover {
+    background-color: #e7ceb5;
+    color: #653024;
+}
