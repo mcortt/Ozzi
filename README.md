@@ -3,13 +3,13 @@ Extension for Firefox and Edge that searches IOCs from common OSINT sources.
 
 # Usage
 1. Launch extension - click icon or keyboard shortcut <Ctrl + Shift + F>
-2. Type or paste the IOC 
+2. Type or paste the IOC:
     * IP address
     * File HASH (MD5, SHA1, or SHA256)
     * URL
     * Port Number
-3. Hit Enter or click Search
-4. The extension should launch relevant OSINT depending on your input type. 
+3. Hit Enter or click Search button
+4. The extension should launch relevant OSINT searches depending on your input type. 
 
 
 # Credit
