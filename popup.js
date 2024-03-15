@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btnSearch').addEventListener('click', function() {
         const valueInput = document.getElementById("txtSearch").value.trim();
         identifyInput(valueInput);
-    });
-    // Add the focus code here
+    });
     setTimeout(function() {
         var input = document.getElementById('txtSearch');
         if(input) {
