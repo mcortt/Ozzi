@@ -1,7 +1,7 @@
 # Ozzi - IOC Quick Search
 Extension for Firefox and Edge that searches IOCs from common OSINT sources.
 
-#Usage
+# Usage
 On launch,via noraml launch or keyboard shortcut <Ctrl + Shift + F>, you can paste or type in an IP, file HASH (either MD5, SHA1, or SHA256), URL, or a port number
 1. Launch extension - click icon or keyboard shortcut <Ctrl + Shift + F>
 2. Type or paste the IOC 
