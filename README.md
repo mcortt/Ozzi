@@ -1,4 +1,4 @@
-# Ozzi
+# Ozzi - IOC Quick Search
 Extension for Firefox and Edge that searches IOCs from common OSINT sources.
 
 #Usage
