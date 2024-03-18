@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OZZI: IOC Search",
   "description": "Search standard IOCs through common OSINT platforms",
-  "version": "0.1.18",
+  "version": "1.0.0",
   "author": "Moohorns",
   "icons": {
     "48": "icon.png"
@@ -14,10 +14,10 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "{fb578cc8-e12e-4bb5-a3d5-4af7588db79e}"
+      "id": "ozzi@iocsearch"
     },
     "edge": {
-      "id": "{776ab241-e287-4fde-b024-86ce1457aaa8}"
+      "id": "{ozzi@iocsearch"
     }
   },
   "commands": {
