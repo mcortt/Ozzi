@@ -25,7 +25,12 @@ body {
     background-color: #e7ceb5;
 }
 
-#txtSearch::placeholder, #txtSearch::selection {
+#txtSearch::selection {
+    color: #e7ceb5;
+    background-color: #653024; 
+}
+
+#txtSearch::placeholder {
     color: inherit;
     background-color: inherit;
 }
