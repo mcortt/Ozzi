@@ -1,3 +1,17 @@
+document.getElementById('checkAll').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = true;
+    }
+});
+
+document.getElementById('uncheckAll').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = false;
+    }
+});
+
 var storage = chrome ? chrome.storage : browser.storage;
 
 document.getElementById('optionsForm').addEventListener('submit', function(e) {
@@ -32,7 +46,7 @@ document.getElementById('optionsForm').addEventListener('submit', function(e) {
         // Wait for 2 seconds, then switch back to the popup.html page
         setTimeout(function() {
             window.location.href = 'popup.html';
-        }, 2000);
+        }, 1000);
     }).catch(function(error) {
         console.log(error);
     });

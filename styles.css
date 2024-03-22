@@ -9,7 +9,7 @@ body {
 }
 
 body#optionsBody{
-    min-width: 600px
+    min-width: 725px
 }
 
 #header {
@@ -25,11 +25,38 @@ body#optionsBody{
 }
 
 input[type="text"] {
-    height: 20px; /* adjust as needed */
+    height: 20px; 
+}
+
+button {
+    border: 0.0625rem solid;
+    font-size: 0.750rem;
+    padding: 0.25rem 0.3125rem;
+    width: 6.875rem;
+    margin-left: 1.000rem;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    vertical-align: top;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #e7ceb5;
+    color: #653024;
+    border-color: #653024;
 }
 
 button[type="submit"] {
-    height: 20px; /* should be the same as the input box height */
+    font-size: 1rem; /* adjust as needed */
+    height: 2rem;;
+    width: 8rem; /* adjust as needed */
+}
+
+.options-button-container {
+    margin-left: 10px; /* adjust as needed */
 }
 
 #txtSearch {
@@ -47,26 +74,6 @@ button[type="submit"] {
     background-color: inherit;
 }
 
-.only-button {
-    border: 0.0625rem solid;
-    font-size: 0.750rem;
-    padding: 0.25rem 0.3125rem;
-    width: 6.875rem;
-    margin-left: 1.000rem;
-    color: inherit;
-    background-color: inherit;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 0.75rem;
-    vertical-align: top;
-    text-decoration: none;
-}
-
-.only-button:hover {
-    background-color: #e7ceb5;
-    color: #653024;
-    border-color: #653024;
-}
 
 #error-message, #save-message {
     font-weight: bold;
@@ -79,11 +86,6 @@ button[type="submit"] {
     display: flex;
     align-items: center;
 }
-
-.options-button-container {
-    margin-left: 10px; /* adjust as needed */
-}
-
 .column {
     width: auto;
     padding: 10px;
@@ -96,12 +98,6 @@ button[type="submit"] {
     display: flex;
     flex-wrap: nowrap; 
     justify-content: flex-start;
-}
-
-button[type="submit"] {
-    display: block;
-    margin: auto;
-    margin-bottom: 20px;
 }
 
 form {
