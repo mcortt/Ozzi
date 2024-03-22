@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Options</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Options</h1>
+    <form id="optionsForm", accept-charset="UTF-8">
+        <div class="row">
+            <div class="column">
+                <h2>IPv4</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="virustotalIP">
+                    <label for="virustotalIP">VirusTotal</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="scamalyticsIP">
+                    <label for="scamalyticsIP">Scamalytics</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="abuseipdbIP">
+                    <label for="abuseipdbIP">AbuseIPDB</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="xforceIP">
+                    <label for="xforceIP">IBM XForce</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="sansIP">
+                    <label for="sansIP">SANS ISC</label>
+                </div>
+            </div>
+            <div class="column">
+                <h2>IPv6</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="scamalyticsIPv6">
+                    <label for="scamalyticsIPv6">Scamalytics</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="abuseipdbIPv6">
+                    <label for="abuseipdbIPv6">AbuseIPDB</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="xforceIPv6">
+                    <label for="xforceIPv6">IBM XForce</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="sansIPv6">
+                    <label for="sansIPv6">SANS ISC</label>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Hash</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="virustotalHash">
+                    <label for="virustotalHash">VirusTotal</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="hybridHash">
+                    <label for="hybridHash">Hybrid Analysis</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="xforceHash">
+                    <label for="xforceHash">IBM XForce</label>
+                </div>
+            </div>
+            <div class="column">
+                <h2>URL</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="virustotalURL">
+                    <label for="virustotalURL">VirusTotal</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="safewebURL">
+                    <label for="safewebURL">Norton SafeWeb</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="sucuriURL">
+                    <label for="sucuriURL">Sucuri</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="xforceURL">
+                    <label for="xforceURL">IBM XForce</label>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Ports</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="speedguidePort">
+                    <label for="speedguidePort">SpeedGuide</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="ianaPort">
+                    <label for="ianaPort">IANA</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="sansPort">
+                    <label for="sansPort">SANS ISC</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Save</button>
+        <div id="save-message"></div>
+    </form>
+    <script src="options.js"></script>
+</body>
+</html>

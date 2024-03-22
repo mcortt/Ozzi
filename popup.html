@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OZZI: IOC Search</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="jquery-3.1.0.min.js"></script>
     <script src="sha256.js"></script>
     <script src="popup.js"></script>
 </head>
@@ -15,8 +14,17 @@
         <h3>OZZI: IOC Search</h3>
     </header>
     <main>
-        <input type="text" id="txtSearch" placeholder="IP, HASH, URL, Port">
-        <button id="btnSearch" class="only-button">Search</button>
+        <div class="search-container">
+            <input type="text" id="txtSearch" placeholder="IP, HASH, URL, Port">
+            <button id="btnSearch" class="only-button">Search</button>
+            <div class="options-button-container">
+                <a href="options.html" target="_blank">
+                    <img src="seticon.png" alt="Options">
+                </a>
+            </div>
+        </div>
+    </br>
+        <div id="error-message"></div>
     </main>
 </body>
 </html>

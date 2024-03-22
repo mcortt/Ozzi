@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OZZI: IOC Search",
   "description": "Search standard IOCs through common OSINT platforms",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "author": "Moohorns",
   "icons": {
     "48": "icon.png"
@@ -28,5 +28,6 @@
       },
       "description": "Opens the extension popup"
     }
-  }
+  }, 
+  "permissions": ["storage"]
 }

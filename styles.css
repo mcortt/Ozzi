@@ -5,12 +5,12 @@ body {
     color: #e7ceb5;
     background: #653024;
     padding: 1rem;
+    min-width: 370px;   
 }
 
 #header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     padding-bottom: 0.5rem;
 }
 
@@ -18,6 +18,14 @@ body {
     width: 3rem; 
     height: 3rem; 
     margin-right: 1rem;
+}
+
+input[type="text"] {
+    height: 20px; /* adjust as needed */
+}
+
+button[type="submit"] {
+    height: 20px; /* should be the same as the input box height */
 }
 
 #txtSearch {
@@ -53,4 +61,49 @@ body {
 .only-button:hover {
     background-color: #e7ceb5;
     color: #653024;
+    border-color: #653024;
+}
+
+#error-message, #save-message {
+    font-weight: bold;
+    color: #e7ceb5;
+    font-size: larger;
+    text-decoration: wavy;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.options-button-container {
+    margin-left: 10px; /* adjust as needed */
+}
+
+.column {
+    width: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap; 
+    justify-content: flex-start;
+}
+
+button[type="submit"] {
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
