@@ -133,7 +133,7 @@ function searchHash(value) {
         if (options.virustotalHash) {
             createTab("https://www.virustotal.com/gui/file/" + value + "/detection");
         }
-        if (options.hybridanalysisHash) {
+        if (options.hybridHash) {
             createTab('https://www.hybrid-analysis.com/search?query=' + value);
         }
         if (options.xforceHash) {

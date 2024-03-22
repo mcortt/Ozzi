@@ -8,6 +8,10 @@ body {
     min-width: 370px;   
 }
 
+body#optionsBody{
+    min-width: 600px
+}
+
 #header {
     display: flex;
     align-items: center;

@@ -28,11 +28,15 @@ document.getElementById('optionsForm').addEventListener('submit', function(e) {
     storage.sync.set(options).then(function() {
         const saveMessage = "YOUR SETTINGS HAVE BEEN SAVED!";
         document.getElementById('save-message').textContent = saveMessage;
+
+        // Wait for 2 seconds, then switch back to the popup.html page
+        setTimeout(function() {
+            window.location.href = 'popup.html';
+        }, 2000);
     }).catch(function(error) {
         console.log(error);
     });
 });
-
 
 window.onload = function() {
     storage.sync.get([
