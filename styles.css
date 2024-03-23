@@ -50,13 +50,15 @@ button:hover {
 }
 
 button[type="submit"] {
-    font-size: 1rem; /* adjust as needed */
+    font-size: 1rem;
     height: 2rem;;
-    width: 8rem; /* adjust as needed */
+    width: 8rem; 
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .options-button-container {
-    margin-left: 10px; /* adjust as needed */
+    margin-left: 10px; 
 }
 
 #txtSearch {
