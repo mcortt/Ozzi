@@ -50,16 +50,16 @@ window.onload = function() {
             var dropdownItems = document.querySelectorAll('.dropdown-item');
             dropdownItems.forEach(item => {
                 if (item.dataset.value === options.theme) {
-                    item.classList.add('selected'); // Add 'selected' class to the saved theme
-                    document.querySelector('.dropdown-button').innerText = options.theme; // Change button text
+                    item.classList.add('selected'); 
+                    document.querySelector('.dropdown-button').innerText = options.theme; 
                 } else {
-                    item.classList.remove('selected'); // Remove 'selected' class from other themes
+                    item.classList.remove('selected'); 
                 }
             });
             selectedTheme = options.theme;
             applyThemeColors(selectedTheme);
         } else {
-            document.querySelector('.dropdown-button').innerText = "Select theme"; // Default button text
+            document.querySelector('.dropdown-button').innerText = "Select theme"; 
         }
     }).catch(console.log);
 };

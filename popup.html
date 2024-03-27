@@ -22,15 +22,17 @@
     </header>
     <main>
         <div class="search-container">
-            <input type="text" id="txtSearch" placeholder="IP, HASH, URL, Port">
-            <button id="btnSearch" class="only-button">Search</button>
-            <div class="options-button-container">
-                <a href="options.html">
-                    <svg id="seticon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 512 512" fill="currentColor"  width="0.1rem" height="0.1rem">
-                            <path d="M425 217h-16c-12 0-22-11-22-24 0-6 2-12 7-16l10-10c10-10 10-25 0-35l-22-22c-5-4-11-7-18-7s-13 3-17 7l-10 9c-4 5-10 8-17 8-13 0-23-10-23-23V89c0-13-11-25-25-25h-30c-14 0-25 11-25 25v15c0 13-10 23-23 23-7 0-12-3-17-7l-9-10c-5-4-11-7-18-7s-13 3-17 7l-23 22a25 25 0 0 0 0 35l9 9c5 5 8 11 8 17 0 13-10 24-23 24H89c-13 0-25 10-25 24v30c0 14 12 24 25 24h15c13 1 23 11 23 24 0 6-3 12-8 17l-9 9a25 25 0 0 0 0 35l22 22c5 5 11 7 18 7 6 0 13-3 17-7l10-10a23 23 0 0 1 40 16v15c0 13 11 25 25 25h30c14 0 24-11 24-25v-15c0-13 11-23 24-23 6 0 12 3 17 8l9 9a25 25 0 0 0 35 0l23-22c9-10 9-25 0-35l-10-10c-5-4-8-10-8-16 0-13 11-23 23-23h15c14 0 24-11 24-25v-30c0-14-10-24-23-24zm-88 39a80 80 0 1 1-160 0 80 80 0 1 1 160 0z"/>
-                    </svg>
-                </a>
+            <div class="input-container">
+                <input type="text" id="txtSearch" placeholder="IP, HASH, URL, Port">
+                <div class="options-button-container">
+                    <a href="options.html">
+                        <svg id="seticon" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 512 512" fill="currentColor"  width="0.1rem" height="0.1rem">
+                                <path d="M425 217h-16c-12 0-22-11-22-24 0-6 2-12 7-16l10-10c10-10 10-25 0-35l-22-22c-5-4-11-7-18-7s-13 3-17 7l-10 9c-4 5-10 8-17 8-13 0-23-10-23-23V89c0-13-11-25-25-25h-30c-14 0-25 11-25 25v15c0 13-10 23-23 23-7 0-12-3-17-7l-9-10c-5-4-11-7-18-7s-13 3-17 7l-23 22a25 25 0 0 0 0 35l9 9c5 5 8 11 8 17 0 13-10 24-23 24H89c-13 0-25 10-25 24v30c0 14 12 24 25 24h15c13 1 23 11 23 24 0 6-3 12-8 17l-9 9a25 25 0 0 0 0 35l22 22c5 5 11 7 18 7 6 0 13-3 17-7l10-10a23 23 0 0 1 40 16v15c0 13 11 25 25 25h30c14 0 24-11 24-25v-15c0-13 11-23 24-23 6 0 12 3 17 8l9 9a25 25 0 0 0 35 0l23-22c9-10 9-25 0-35l-10-10c-5-4-8-10-8-16 0-13 11-23 23-23h15c14 0 24-11 24-25v-30c0-14-10-24-23-24zm-88 39a80 80 0 1 1-160 0 80 80 0 1 1 160 0z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
+            <button id="btnSearch" class="serach-button">Search</button>
         </div>
     </br>
         <div id="error-message"></div>

@@ -1,9 +1,12 @@
-body {
+body, #header, .column, form, .search-container, .input-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
+}
+
+body {
     padding: 1rem;
-    min-width: 370px;
+    min-width: 350px;
     color: var(--accent-color);
     background: var(--main-color);
 }
@@ -12,23 +15,57 @@ body#optionsBody {
     min-width: 725px;
 }
 
-#header, .search-container, .column, form {
+.search-container, .input-container {
+    justify-content: center;
+    width: 100%;
+}
+
+.input-container {
+    position: relative; 
+}
+
+.search-container button, #header {
+    margin-top: 10px; 
+    padding-bottom: 0.5rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.column {
+    align-items: flex-start;
+    width: auto;
+    padding: 10px;
+}
+
+.options-button-container {
+    position: absolute;
+    left: 110%;
+}
+
+.theme-container {
+    order: 2;
+    width: 15%;
+    margin-left: 50%;
     display: flex;
     align-items: center;
 }
 
-#header {
-    padding-bottom: 0.5rem;
+button[type="submit"] {
+    font-size: 1rem;
+    height: 2rem;
+    width: 8rem;
+    margin: 2rem auto 1rem;
 }
 
 #logo, #seticon {
     color: var(--accent-color);
-}
-
-#logo {
     width: 3rem;
     height: 3rem;
-    margin-right: 1rem;
 }
 
 #seticon {
@@ -56,26 +93,10 @@ button {
     background-color: var(--main-color);
 }
 
-button:hover {
+button:hover, .dropdown-content .dropdown-item:hover {
     background-color: var(--accent-color);
     color: var(--main-color);
     border-color: var(--main-color);
-}
-
-button[type="submit"] {
-    font-size: 1rem;
-    height: 2rem;
-    width: 8rem;
-    margin: 2rem auto 1rem;
-}
-
-.options-button-container {
-    margin-left: 10px;
-}
-
-#txtSearch::selection {
-    color: var(--accent-color);
-    background-color: var(--main-color);
 }
 
 #error-message, #save-message {
@@ -85,35 +106,9 @@ button[type="submit"] {
     text-decoration: wavy;
 }
 
-.column {
-    width: auto;
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.row {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-}
-
 form {
     width: 100%;
-    flex-direction: column;
     margin-bottom: 20px;
-}
-
-.theme-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-top: 2rem;
-    margin-left: auto;
-}
-
-h2 {
-    margin-right: 10px;
 }
 
 .dropdown {
@@ -135,7 +130,7 @@ h2 {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     width: 70%;
     left: 20%;
-    transform: none;
+    bottom: 100%;
 }
 
 .dropdown-content .dropdown-item {
@@ -146,11 +141,6 @@ h2 {
     display: block;
     line-height: 1.5;
     white-space: nowrap;
-}
-
-.dropdown-content .dropdown-item:hover {
-    color: var(--main-color);
-    background-color: var(--accent-color);
 }
 
 .dropdown:hover .dropdown-content {
