@@ -8,7 +8,7 @@
 <body id="optionsBody">
     <h1>Options</h1>
     <h3>Select which OSINT sources you would like to use.</h3>
-    <form id="optionsForm", accept-charset="UTF-8">
+    <form id="optionsForm" accept-charset="UTF-8">
         <div class="row">
             <div class="column">
                 <h2>IPv4</h2>
@@ -106,9 +106,22 @@
             <button type="button" id="checkAll">Check All</button>
             <button type="button" id="uncheckAll">Uncheck All</button>
         </div>
+        <div class="theme-container">
+            <h2>Theme:</h2>
+            <div class="dropdown">
+                <button class="dropdown-button">Select theme</button>
+                <div class="dropdown-content">
+                  <div class="dropdown-item" data-value="Light">Light</div>
+                  <div class="dropdown-item" data-value="Dark">Dark</div>
+                  <div class="dropdown-item" data-value="Noctua-Dark">Noctua Dark</div>
+                  <div class="dropdown-item" data-value="Noctua-Light">Noctua Light</div>
+                </div>
+              </div>
+        </div>
         <button type="submit">Save Choices</button>
         <div id="save-message"></div>
     </form>
     <script src="options.js"></script>
+    <script src="common.js"></script>
 </body>
 </html>

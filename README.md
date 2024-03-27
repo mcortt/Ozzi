@@ -1,5 +1,16 @@
 # Ozzi - IOC Quick Search
-Extension for Firefox and Edge that searches IOCs from common OSINT sources.
+Extension for Firefox, Chrome, and Edge that searches IOCs from common OSINT sources.
+
+
+# Setup
+You now have the option to select the OSINT sites you would like to search for each IOC type.
+NOTE: You will have to select OSINT sites you want to use before the extension will start giving you results. 
+
+1. Launch the extension and click the gear icon next to the search button.
+2. Check the OSINT sites you would like to use.
+3. You can also select a theme to use from the dropdown. 
+4. Hit save at the bottom when done selecting. You should get a message that your settings have been saved.
+
 
 # Usage
 1. Launch extension - click icon or keyboard shortcut <Ctrl + Shift + F>
