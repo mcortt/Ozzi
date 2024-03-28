@@ -63,12 +63,12 @@ function search(type, value) {
     if (value) {
         for (let key in urlMappings[type]) {
             if (options[key]) {
-                let url = urlMappings[type][key];
+                let url = urlMappings[type][key] + value;
                 if (type === 'url') {
                     if (key === 'virustotalURL') {
-                        url += CryptoJS.SHA256(addHttp(value)) + '/detection';
+                        url = urlMappings[type][key] + CryptoJS.SHA256(addHttp(value)) + '/detection';
                     } else {
-                        url += addHttp(value);
+                        url = urlMappings[type][key] + addHttp(value);
                     }
                 }
                 createTab(url);
