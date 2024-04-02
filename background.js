@@ -134,7 +134,7 @@ async function identifyInput(input) {
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         id: "search",
-        title: "Search",
+        title: "Search OZZI for '%s'",
         contexts: ["selection"]
     });
 });
