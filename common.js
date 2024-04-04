@@ -16,7 +16,7 @@ function getColorsForTheme(theme) {
 }
 function saveThemeColors(theme) {
     var colors = getColorsForTheme(theme);
-    storage.sync.set({ 'accentColor': colors.accentColor, 'mainColor': colors.mainColor });
+    storage.sync.set({ 'accentColor': colors.accentColor, 'mainColor': colors.mainColor, 'theme': theme });
 }
 
 function applyThemeColors(theme) {

@@ -103,6 +103,13 @@ function search(type, value) {
 async function identifyInput(input) {
     console.log('');
     await getOptions();
+
+    // Check if input is a defanged URL
+    if (input.includes('[.]') || input.includes('hxxp')) {
+        // Revert defanged URL to actual URL
+        input = input.replace(/\[\.\]/g, '.').replace(/hxxp/g, 'http');
+    }
+
     const patterns = {
         ip: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
         ipv6: /^([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])$/,
@@ -137,6 +144,38 @@ chrome.runtime.onInstalled.addListener(function() {
         title: "Search OZZI for '%s'",
         contexts: ["selection"]
     });
+});
+
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "install") {
+        let defaultOptions = {
+            'virustotalIP': true,
+            'scamalyticsIP': true,
+            'abuseipdbIP': true,
+            'xforceIP': true,
+            'sansIP': true,
+            'scamalyticsIPv6': true,
+            'abuseipdbIPv6': true,
+            'xforceIPv6': true,
+            'sansIPv6': true,
+            'virustotalHash': true,
+            'hybridHash': true,
+            'xforceHash': true,
+            'virustotalURL': true,
+            'sucuriURL': true,
+            'safeWebURL': true,
+            'xforceURL': true,
+            'speedguidePort': true,
+            'ianaPort': true,
+            'sansPort': true,
+            'theme': 'Dark'
+        };
+
+        chrome.storage.sync.set(defaultOptions).then(function() {
+            console.log("Default options set.");
+        }).catch(console.log);
+    } else if (details.reason == "update") {
+    }console.log("Default options not set as this is an update.");
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {

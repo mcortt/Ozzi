@@ -18,9 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.onload = function() {
-    storage.sync.get(['accentColor', 'mainColor'], function(items) {
+    storage.sync.get(['accentColor', 'mainColor', 'theme'], function(items) {
         if (items.accentColor && items.mainColor) {
             applyThemeColors({ accentColor: items.accentColor, mainColor: items.mainColor });
+        }
+        if (items.theme) {
+            applyThemeColors(items.theme);
         }
     });
 };
