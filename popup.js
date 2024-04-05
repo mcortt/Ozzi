@@ -1,3 +1,5 @@
+var storage = chrome ? chrome.storage : browser.storage;
+
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('#txtSearch');
     const searchButton = document.getElementById('btnSearch');

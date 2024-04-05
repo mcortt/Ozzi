@@ -1,5 +1,7 @@
+var storage = chrome ? chrome.storage : browser.storage;
+
 document.addEventListener('DOMContentLoaded', function() {
-    chrome.storage.sync.get(['mainColor', 'accentColor'], function(data) {
+    storage.sync.get(['mainColor', 'accentColor'], function(data) {
         let themeStyle = document.createElement('style');
         themeStyle.textContent = `
             body {
