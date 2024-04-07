@@ -181,26 +181,31 @@ namespace.runtime.onMessage.addListener(function(request, sender, sendResponse) 
     return true;
 });
 
-namespace.runtime.getPlatformInfo().then(function(info) {
-    if (info.os !== "android") {
-        namespace.contextMenus.create({
-            id: "search",
-            title: "Search OZZI for '%s'",
-            contexts: ["selection"]
-        });
-        namespace.contextMenus.onClicked.addListener(function(info, tab) {
-            if (info.menuItemId === "search") {
-                let input = info.selectionText.trim();
-                identifyInput(input)
-                    .catch(error => {
-                        namespace.windows.create({
-                            url: 'error.html',
-                            type: 'popup',
-                            width: 300,
-                            height: 150
+function createContextMenu() {
+    namespace.runtime.getPlatformInfo().then(function(info) {
+        if (info.os !== "android") {
+            namespace.contextMenus.create({
+                id: "search",
+                title: "Search OZZI for '%s'",
+                contexts: ["selection"]
+            });
+            namespace.contextMenus.onClicked.addListener(function(info, tab) {
+                if (info.menuItemId === "search") {
+                    let input = info.selectionText.trim();
+                    identifyInput(input)
+                        .catch(error => {
+                            namespace.windows.create({
+                                url: 'error.html',
+                                type: 'popup',
+                                width: 300,
+                                height: 150
+                            });
                         });
-                    });
-            }
-        });
-    }
-});
+                }
+            });
+        }
+    });
+}
+
+namespace.runtime.onStartup.addListener(createContextMenu);
+namespace.runtime.onInstalled.addListener(createContextMenu);
