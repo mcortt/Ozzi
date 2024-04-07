@@ -11,4 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(themeStyle);
     });
+
+    let params = new URLSearchParams(window.location.search);
+    let input = params.get('input');
+    if (input) {
+        let errorMessage = document.getElementById('errorMessage');
+        let searchQuerySpan = document.createElement('span');
+        searchQuerySpan.textContent = "\"" + decodeURIComponent(input) + "\" ";
+        searchQuerySpan.style.fontWeight = 'bold';
+        searchQuerySpan.style.fontStyle = 'italic';
+        errorMessage.prepend(searchQuerySpan);
+    }
+
+    setTimeout(function() {
+        window.close();
+    }, 2000); 
 });

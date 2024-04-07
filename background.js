@@ -189,23 +189,26 @@ function createContextMenu() {
                 title: "Search OZZI for '%s'",
                 contexts: ["selection"]
             });
-            namespace.contextMenus.onClicked.addListener(function(info, tab) {
-                if (info.menuItemId === "search") {
-                    let input = info.selectionText.trim();
-                    identifyInput(input)
-                        .catch(error => {
-                            namespace.windows.create({
-                                url: 'error.html',
-                                type: 'popup',
-                                width: 300,
-                                height: 150
-                            });
-                        });
-                }
-            });
         }
     });
 }
+
+namespace.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId === "search") {
+        let input = info.selectionText.trim();
+        identifyInput(input)
+            .catch(error => {
+                console.log(error); // Log the error to the console
+                let errorUrl = `error.html?input=${encodeURIComponent(input)}`;
+                namespace.windows.create({
+                    url: errorUrl,
+                    type: 'popup',
+                    width: 400,
+                    height: 200
+                });
+            });
+    }
+});
 
 namespace.runtime.onStartup.addListener(createContextMenu);
 namespace.runtime.onInstalled.addListener(createContextMenu);
