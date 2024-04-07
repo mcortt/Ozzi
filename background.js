@@ -63,7 +63,6 @@ function createTab(url) {
 }
 
 function addHttp(url) {
-    console.log("URL before processing: ", url);
     if (!/^https?:\/\//i.test(url)) {
         url = 'http://' + url;
     }
@@ -71,31 +70,21 @@ function addHttp(url) {
     if (urlObject.pathname === '/' && urlObject.search === '' && urlObject.hash === '' && !url.endsWith('/')) {
         url += '/';
     }
-    console.log("URL after addHTTP: ", url);
     return url;
 }
 
 function search(type, value) {
-    console.log("Type: ", type);
-    console.log("Value: ", value);
     if (value) {
         for (let key in urlMappings[type]) {
-            console.log("Key: ", key);
-            console.log("Key: ", key, " Value: ", options[key]);
             if (options[key]) {
-                console.log("Option for key is true");
                 let url = urlMappings[type][key] + value;
-                console.log("URL before processing as Virustotal: ", url);
                 if (type === 'url') {
                     if (key === 'virustotalURL') {
-                        console.log("URL before processing HASH: ", url);
-
                         url = urlMappings[type][key] + CryptoJS.SHA256(addHttp(value)) + '/detection';
                     } else {
                         url = urlMappings[type][key] + addHttp(value);
                     }
                 }
-                console.log("URL after processing: ", url);
                 createTab(url);
             }
         }
@@ -103,12 +92,9 @@ function search(type, value) {
 }
 
 async function identifyInput(input) {
-    console.log('');
     await getOptions();
 
-    // Check if input is a defanged URL
     if (input.includes('[.]') || input.includes('hxxp')) {
-        // Revert defanged URL to actual URL
         input = input.replace(/\[\.\]/g, '.').replace(/hxxp/g, 'http');
     }
 
@@ -125,28 +111,18 @@ async function identifyInput(input) {
         '(\\#[-a-z\\d_]*)?$','i')
     };
 
-    for (let type in patterns) {
-        if (patterns[type].test(input)) {
-            search(type, input);
-            return;
+    return new Promise((resolve, reject) => {
+        for (let type in patterns) {
+            if (patterns[type].test(input)) {
+                search(type, input);
+                resolve();
+                return;
+            }
         }
-    }
 
-    chrome.windows.create({
-        url: chrome.runtime.getURL("error.html"),
-        type: "popup",
-        width: 350,
-        height: 150
+        reject("Please enter a valid search query!");
     });
 }
-
-
-chrome.contextMenus.create({
-    id: "search",
-    title: "Search OZZI for '%s'",
-    contexts: ["selection"]
-});
-
 
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") {
@@ -174,21 +150,44 @@ chrome.runtime.onInstalled.addListener(function(details) {
         };
 
         storage.sync.set(defaultOptions).then(function() {
-            console.log("Default options set.");
-        }).catch(console.log);
+        }).catch(function(error) {
+        });
     } else if (details.reason == "update") {
-    }console.log("Default options not set as this is an update.");
-});
-
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    if (info.menuItemId === "search") {
-        let input = info.selectionText.trim();
-        identifyInput(input);
     }
 });
 
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.input) {
-        identifyInput(message.input);
-    }
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    identifyInput(request.input)
+        .then(() => sendResponse({}))
+        .catch(error => sendResponse({error: error}));
+
+    return true;
 });
+
+
+chrome.runtime.getPlatformInfo().then(function(info) {
+    if (info.os !== "android") {
+      chrome.contextMenus.create({
+        id: "search",
+        title: "Search OZZI for '%s'",
+        contexts: ["selection"]
+      });
+  
+    chrome.contextMenus.onClicked.addListener(function(info, tab) {
+        if (info.menuItemId === "search") {
+            let input = info.selectionText.trim();
+            identifyInput(input)
+                .catch(error => {
+                    chrome.windows.create({
+                        url: 'error.html',
+                        type: 'popup',
+                        width: 300,
+                        height: 150
+                    });
+                });
+        }
+    });
+    }
+  });
+  

@@ -4,15 +4,45 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('#txtSearch');
     const searchButton = document.getElementById('btnSearch');
 
-    searchInput.addEventListener("keydown", function (e) {
-        if (e.keyCode === 13) {
-            chrome.runtime.sendMessage({input: searchInput.value.trim()});
-        }
+async function sendMessage(input) {
+    return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({input: input}, function(response) {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve(response);
+            }
+        });
     });
+}
 
-    searchButton.addEventListener('click', function() {
-        chrome.runtime.sendMessage({input: searchInput.value.trim()});
-    });
+searchInput.addEventListener("keydown", async function (e) {
+    if (e.keyCode === 13) {
+        try {
+            const response = await sendMessage(searchInput.value.trim());
+            if (response.error) {
+                displayError(response.error);
+            } else {
+                window.close();
+            }
+        } catch (error) {
+            displayError(error.message);
+        }
+    }
+});
+
+searchButton.addEventListener('click', async function() {
+    try {
+        const response = await sendMessage(searchInput.value.trim());
+        if (response.error) {
+            displayError(response.error);
+        } else {
+            window.close();
+        }
+    } catch (error) {
+        displayError(error.message);
+    }
+});
 
     setTimeout(function() {
         searchInput.focus();
@@ -29,3 +59,7 @@ window.onload = function() {
         }
     });
 };
+
+function displayError(message) {
+    document.getElementById('error-message').textContent = message;
+}
