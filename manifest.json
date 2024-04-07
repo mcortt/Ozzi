@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OZZI: IOC Search",
   "description": "Search standard IOCs through common OSINT platforms",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "author": "mcortt",
   "icons": {
     "48": "icon.png"
