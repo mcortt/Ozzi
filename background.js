@@ -11,7 +11,6 @@ d[e>>>5]|=128<<24-e%32;d[(e+64>>>9<<4)+14]=h.floor(b/4294967296);d[(e+64>>>9<<4)
 
 var storage = chrome ? chrome.storage : browser.storage;
 
-
 const urlMappings = {
     ip: {
         virustotalIP: "https://www.virustotal.com/gui/ip-address/",
@@ -156,16 +155,15 @@ chrome.runtime.onInstalled.addListener(function(details) {
     }
 });
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    identifyInput(request.input)
+        .then(() => sendResponse({}))
+        .catch(error => sendResponse({error: error}));
 
-getOptions().then(() => {
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        identifyInput(request.input)
-            .then(() => sendResponse({}))
-            .catch(error => sendResponse({error: error}));
+    return true;
+});
 
-        return true;
-    });
-
+chrome.runtime.onStartup.addListener(function() {
     chrome.runtime.getPlatformInfo().then(function(info) {
         if (info.os !== "android") {
             chrome.contextMenus.create({
@@ -173,7 +171,6 @@ getOptions().then(() => {
                 title: "Search OZZI for '%s'",
                 contexts: ["selection"]
             });
-
             chrome.contextMenus.onClicked.addListener(function(info, tab) {
                 if (info.menuItemId === "search") {
                     let input = info.selectionText.trim();
@@ -190,5 +187,4 @@ getOptions().then(() => {
             });
         }
     });
-}).catch(error => {
 });
