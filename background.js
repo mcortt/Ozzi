@@ -157,37 +157,38 @@ chrome.runtime.onInstalled.addListener(function(details) {
 });
 
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    identifyInput(request.input)
-        .then(() => sendResponse({}))
-        .catch(error => sendResponse({error: error}));
+getOptions().then(() => {
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        identifyInput(request.input)
+            .then(() => sendResponse({}))
+            .catch(error => sendResponse({error: error}));
 
-    return true;
-});
+        return true;
+    });
 
+    chrome.runtime.getPlatformInfo().then(function(info) {
+        if (info.os !== "android") {
+            chrome.contextMenus.create({
+                id: "search",
+                title: "Search OZZI for '%s'",
+                contexts: ["selection"]
+            });
 
-chrome.runtime.getPlatformInfo().then(function(info) {
-    if (info.os !== "android") {
-      chrome.contextMenus.create({
-        id: "search",
-        title: "Search OZZI for '%s'",
-        contexts: ["selection"]
-      });
-  
-    chrome.contextMenus.onClicked.addListener(function(info, tab) {
-        if (info.menuItemId === "search") {
-            let input = info.selectionText.trim();
-            identifyInput(input)
-                .catch(error => {
-                    chrome.windows.create({
-                        url: 'error.html',
-                        type: 'popup',
-                        width: 300,
-                        height: 150
-                    });
-                });
+            chrome.contextMenus.onClicked.addListener(function(info, tab) {
+                if (info.menuItemId === "search") {
+                    let input = info.selectionText.trim();
+                    identifyInput(input)
+                        .catch(error => {
+                            chrome.windows.create({
+                                url: 'error.html',
+                                type: 'popup',
+                                width: 300,
+                                height: 150
+                            });
+                        });
+                }
+            });
         }
     });
-    }
-  });
-  
+}).catch(error => {
+});
