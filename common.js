@@ -1,4 +1,4 @@
-var storage = chrome ? chrome.storage : browser.storage;
+var namespace = typeof chrome !== 'undefined' ? chrome : browser;
 
 function getColorsForTheme(theme) {
     switch (theme) {
@@ -14,9 +14,10 @@ function getColorsForTheme(theme) {
             return { accentColor: '#e7ceb5', mainColor: '#653024' };
     }
 }
+
 function saveThemeColors(theme) {
     var colors = getColorsForTheme(theme);
-    storage.sync.set({ 'accentColor': colors.accentColor, 'mainColor': colors.mainColor, 'theme': theme });
+    namespace.storage.sync.set({ 'accentColor': colors.accentColor, 'mainColor': colors.mainColor, 'theme': theme });
 }
 
 function applyThemeColors(theme) {

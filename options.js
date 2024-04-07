@@ -1,4 +1,4 @@
-var storage = chrome ? chrome.storage : browser.storage;
+var namespace = typeof chrome !== 'undefined' ? chrome : browser;
 var selectedTheme;
 
 function toggleCheckboxes(checked) {
@@ -20,7 +20,7 @@ document.getElementById('optionsForm').addEventListener('submit', function(e) {
 
     options.theme = selectedTheme || document.getElementById('themeSelect').value;
 
-    storage.sync.set(options).then(function() {
+    namespace.storage.sync.set(options).then(function() {
         document.getElementById('save-message').textContent = "YOUR SETTINGS HAVE BEEN SAVED!";
         saveThemeColors(options.theme);
         setTimeout(function() {
@@ -38,7 +38,7 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
 });
 
 window.onload = function() {
-    storage.sync.get().then(function(options) {
+    namespace.storage.sync.get().then(function(options) {
         Object.keys(options).forEach(key => {
             var element = document.getElementById(key);
             if (element && element.type === 'checkbox') {

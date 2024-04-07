@@ -1,7 +1,7 @@
-var storage = chrome ? chrome.storage : browser.storage;
+var namespace = typeof chrome !== 'undefined' ? chrome : browser;
 
 document.addEventListener('DOMContentLoaded', function() {
-    storage.sync.get(['mainColor', 'accentColor'], function(data) {
+    namespace.storage.sync.get(['mainColor', 'accentColor'], function(data) {
         let themeStyle = document.createElement('style');
         themeStyle.textContent = `
             body {
