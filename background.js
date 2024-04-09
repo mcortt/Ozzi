@@ -23,24 +23,32 @@ const urlMappings = {
         scamalyticsIP: 'https://scamalytics.com/ip/',
         abuseipdbIP: 'https://www.abuseipdb.com/check/',
         xforceIP: 'https://exchange.xforce.ibmcloud.com/ip/',
-        sansIP: 'https://isc.sans.edu/ipinfo/'
+        sansIP: 'https://isc.sans.edu/ipinfo/', 
+        talosIP: 'https://talosintelligence.com/reputation_center/lookup?search=',
+        avIP: 'https://otx.alienvault.com/browse/global/pulses?q='
     },
     ipv6: {
         scamalyticsIPv6: 'https://scamalytics.com/ip/',
         abuseipdbIPv6: 'https://www.abuseipdb.com/check/',
         xforceIPv6: 'https://exchange.xforce.ibmcloud.com/ip/',
-        sansIPv6: 'https://isc.sans.edu/ipinfo/'
+        sansIPv6: 'https://isc.sans.edu/ipinfo/',
+        talosIPv6: 'https://talosintelligence.com/reputation_center/lookup?search=',
+        avIPv6: 'https://otx.alienvault.com/browse/global/pulses?q='
     },
     hash: {
         virustotalHash: "https://www.virustotal.com/gui/file/",
         hybridHash: 'https://www.hybrid-analysis.com/search?query=',
-        xforceHash: 'https://exchange.xforce.ibmcloud.com/malware/'
+        xforceHash: 'https://exchange.xforce.ibmcloud.com/malware/',
+        talosHash: 'https://talosintelligence.com/reputation_center/lookup?search=',
+        avHash: 'https://otx.alienvault.com/browse/global/pulses?q='
     },
     url: {
         virustotalURL: "https://www.virustotal.com/gui/url/",
         safeWebURL: 'https://safeweb.norton.com/report?url=',
         sucuriURL: 'https://sitecheck.sucuri.net/results/',
-        xforceURL: 'https://exchange.xforce.ibmcloud.com/url/'
+        xforceURL: 'https://exchange.xforce.ibmcloud.com/url/',
+        talosURL: 'https://talosintelligence.com/reputation_center/lookup?search=',
+        avURL: 'https://otx.alienvault.com/browse/global/pulses?q='
     },
     port: {
         speedguidePort: 'https://www.speedguide.net/port.php?port=',
@@ -149,17 +157,25 @@ namespace.runtime.onInstalled.addListener(function(details) {
             'abuseipdbIP': true,
             'xforceIP': true,
             'sansIP': true,
+            'talosIP': true,
+            'avIP': true,
             'scamalyticsIPv6': true,
             'abuseipdbIPv6': true,
             'xforceIPv6': true,
             'sansIPv6': true,
+            'talosIPv6': true,
+            'avIPv6': true,
             'virustotalHash': true,
             'hybridHash': true,
             'xforceHash': true,
+            'talosHash': true,
+            'avHash': true,
             'virustotalURL': true,
             'sucuriURL': true,
             'safeWebURL': true,
             'xforceURL': true,
+            'talosURL': true,
+            'avURL': true,
             'speedguidePort': true,
             'ianaPort': true,
             'sansPort': true,
