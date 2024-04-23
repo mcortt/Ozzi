@@ -25,7 +25,11 @@ const urlMappings = {
         xforceIP: 'https://exchange.xforce.ibmcloud.com/ip/',
         sansIP: 'https://isc.sans.edu/ipinfo/', 
         talosIP: 'https://talosintelligence.com/reputation_center/lookup?search=',
-        avIP: 'https://otx.alienvault.com/browse/global/pulses?q='
+        avIP: 'https://otx.alienvault.com/browse/global/pulses?q=',
+        arinIP: 'https://search.arin.net/rdap/?query=',
+        shodanIP: 'https://www.shodan.io/host/',
+        threatminerIP: 'https://threatminer.org/host.php?q=',
+        pulseIP: 'http://pulsedive.com/indicator/?ioc='
     },
     ipv6: {
         scamalyticsIPv6: 'https://scamalytics.com/ip/',
@@ -33,14 +37,18 @@ const urlMappings = {
         xforceIPv6: 'https://exchange.xforce.ibmcloud.com/ip/',
         sansIPv6: 'https://isc.sans.edu/ipinfo/',
         talosIPv6: 'https://talosintelligence.com/reputation_center/lookup?search=',
-        avIPv6: 'https://otx.alienvault.com/browse/global/pulses?q='
+        avIPv6: 'https://otx.alienvault.com/browse/global/pulses?q=',
+        arinIPv6: 'https://search.arin.net/rdap/?query=',
+        pulseIPv6: 'http://pulsedive.com/indicator/?ioc='
     },
     hash: {
         virustotalHash: "https://www.virustotal.com/gui/file/",
         hybridHash: 'https://www.hybrid-analysis.com/search?query=',
         xforceHash: 'https://exchange.xforce.ibmcloud.com/malware/',
         talosHash: 'https://talosintelligence.com/reputation_center/lookup?search=',
-        avHash: 'https://otx.alienvault.com/browse/global/pulses?q='
+        avHash: 'https://otx.alienvault.com/browse/global/pulses?q=',
+        threatminerHash: 'https://www.threatminer.org/sample.php?q=',
+        urlhausHash: 'https://urlhaus.abuse.ch/browse.php?search='
     },
     url: {
         virustotalURL: "https://www.virustotal.com/gui/url/",
@@ -48,7 +56,10 @@ const urlMappings = {
         sucuriURL: 'https://sitecheck.sucuri.net/results/',
         xforceURL: 'https://exchange.xforce.ibmcloud.com/url/',
         talosURL: 'https://talosintelligence.com/reputation_center/lookup?search=',
-        avURL: 'https://otx.alienvault.com/browse/global/pulses?q='
+        avURL: 'https://otx.alienvault.com/browse/global/pulses?q=',
+        shodanURL: 'https://www.shodan.io/search?query=',
+        urlhausURL: 'https://urlhaus.abuse.ch/browse.php?search=',
+        pulseURL: 'http://pulsedive.com/indicator/?ioc='
     },
     port: {
         speedguidePort: 'https://www.speedguide.net/port.php?port=',
@@ -56,6 +67,136 @@ const urlMappings = {
         sansPort: 'https://isc.sans.edu/port.html?port='
     }
 };
+const urlMappingsDetails = {
+    virustotal: {
+        friendlyName: "VirusTotal",
+        icon: "icons/virustotal.png"
+    },
+    scamalytics: {
+        friendlyName: "Scamalytics",
+        icon: "icons/scamalytics.png"
+    },    
+    abuseipdb: {
+        friendlyName: "AbuseIPDB",
+        icon: "icons/abuseipdb.png"
+    },
+    xforce: {
+        friendlyName: "X-Force Exchange",
+        icon: "icons/xforce.png"
+    },
+    sans: {
+        friendlyName: "SANS Internet Storm Center",
+        icon: "icons/sans.png"
+    },
+    talos: {
+        friendlyName: "Cisco Talos",
+        icon: "icons/talos.png"
+    },
+    av: {
+        friendlyName: "AlienVault OTX",
+        icon: "icons/alienvault.png"
+    },
+    arin: {
+        friendlyName: "ARIN",
+        icon: "icons/arin.png"
+    },
+    shodan: {
+        friendlyName: "Shodan",
+        icon: "icons/shodan.png"
+    },
+    threatminer: {
+        friendlyName: "ThreatMiner",
+        icon: "icons/threatminer.png"
+    },  
+    pulse: {
+        friendlyName: "Pulsedive",
+        icon: "icons/pulsedive.png"
+    },
+    hybrid: {
+        friendlyName: "Hybrid Analysis",
+        icon: "icons/hybrid.png"
+    },
+    safeWeb: {
+        friendlyName: "Norton Safe Web",
+        icon: "icons/safeweb.png"
+    },
+    sucuri: {
+        friendlyName: "Sucuri SiteCheck",
+        icon: "icons/sucuri.png"
+    },
+    speedguide: {
+        friendlyName: "SpeedGuide",
+        icon: "icons/speedguide.png"
+    },
+    iana: {
+        friendlyName: "IANA",
+        icon: "icons/iana.png"
+    },
+    urlhaus: {  
+        friendlyName: "URLhaus",
+        icon: "icons/urlhaus.png"
+    }
+};
+
+
+namespace.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "install") {
+        let defaultOptions = {
+            'virustotalIP': true,
+            'scamalyticsIP': true,
+            'abuseipdbIP': true,
+            'xforceIP': true,
+            'sansIP': true,
+            'talosIP': true,
+            'avIP': true,
+            'arinIP': true,
+            'shodanIP': true,
+            'threatminerIP': true,
+            'pulseIP': true,
+            'scamalyticsIPv6': true,
+            'abuseipdbIPv6': true,
+            'xforceIPv6': true,
+            'sansIPv6': true,
+            'talosIPv6': true,
+            'avIPv6': true,
+            'arinIPv6': true,
+            'pulseIPv6': true,
+            'virustotalHash': true,
+            'hybridHash': true,
+            'xforceHash': true,
+            'talosHash': true,
+            'avHash': true,
+            'threatminerHash': true,
+            'urlhausHash': true,
+            'virustotalURL': true,
+            'sucuriURL': true,
+            'safeWebURL': true,
+            'xforceURL': true,
+            'talosURL': true,
+            'avURL': true,
+            'shodanURL': true,
+            'urlhausURL': true,
+            'pulseURL': true,
+            'speedguidePort': true,
+            'ianaPort': true,
+            'sansPort': true,
+            'theme': 'Dark'
+        };
+
+        storage.sync.set(defaultOptions).then(function() {
+        }).catch(function(error) {
+        });
+    } else if (details.reason == "update") {
+    }
+});
+
+namespace.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    identifyInput(request.input, 'user')
+        .then(() => sendResponse({}))
+        .catch(error => sendResponse({error: error}));
+
+    return true;
+});
 
 let options = {};
 
@@ -70,6 +211,20 @@ function getOptions() {
             }
         });
     });
+}
+
+
+function handleError(input) {
+    return function(error) {
+        console.log(error); 
+        let errorUrl = `error.html?input=${encodeURIComponent(input)}`;
+        namespace.windows.create({
+            url: errorUrl,
+            type: 'popup',
+            width: 400,
+            height: 200
+        });
+    }
 }
 
 function createTab(url) {
@@ -98,16 +253,47 @@ function addHttp(url) {
     return url;
 }
 
-function search(type, value) {
+function identifyInputType(input) {
+    const patterns = {
+        ip: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
+        ipv6: /^([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])$/,
+        hash: /^([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64})$/,
+        port: /^([0-9]{1,5})$/,
+        url: new RegExp('^(https?:\\/\\/)?'+ 
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ 
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+ 
+        '(\\#[-a-z\\d_]*)?$','i')
+    };
+
+    for (let type in patterns) {
+        if (patterns[type].test(input)) {
+            return type;
+        }
+    }
+
+    return null;
+}
+
+function search(type, value, searchType, specificSite) {
     if (value) {
         for (let key in urlMappings[type]) {
-            if (options[key]) {
+            if ((searchType === 'all') || (searchType === 'user' && options[key]) || (searchType === 'specific' && key === specificSite)) {
                 let url = urlMappings[type][key] + value;
                 if (type === 'url') {
                     if (key === 'virustotalURL') {
                         url = urlMappings[type][key] + CryptoJS.SHA256(addHttp(value)) + '/detection';
+                    } else if (key === 'pulseURL') {
+                        url = urlMappings[type][key] + btoa(addHttp(value));
                     } else {
                         url = urlMappings[type][key] + addHttp(value);
+                    }
+                } else if (type === 'ip' || type === 'ipv6') {
+                    if (key === 'pulseIP' || key === 'pulseIPv6') {
+                        url = urlMappings[type][key] + btoa(value);
+                    } else {
+                        url = urlMappings[type][key] + value;
                     }
                 }
                 createTab(url);
@@ -116,7 +302,7 @@ function search(type, value) {
     }
 }
 
-async function identifyInput(input) {
+async function identifyInput(input, searchType, specificSite) {
     await getOptions();
 
     if (input.includes('[.]') || input.includes('hxxp')) {
@@ -139,7 +325,7 @@ async function identifyInput(input) {
     return new Promise((resolve, reject) => {
         for (let type in patterns) {
             if (patterns[type].test(input)) {
-                search(type, input);
+                search(type, input, searchType, specificSite);
                 resolve();
                 return;
             }
@@ -149,80 +335,65 @@ async function identifyInput(input) {
     });
 }
 
-namespace.runtime.onInstalled.addListener(function(details) {
-    if (details.reason == "install") {
-        let defaultOptions = {
-            'virustotalIP': true,
-            'scamalyticsIP': true,
-            'abuseipdbIP': true,
-            'xforceIP': true,
-            'sansIP': true,
-            'talosIP': true,
-            'avIP': true,
-            'scamalyticsIPv6': true,
-            'abuseipdbIPv6': true,
-            'xforceIPv6': true,
-            'sansIPv6': true,
-            'talosIPv6': true,
-            'avIPv6': true,
-            'virustotalHash': true,
-            'hybridHash': true,
-            'xforceHash': true,
-            'talosHash': true,
-            'avHash': true,
-            'virustotalURL': true,
-            'sucuriURL': true,
-            'safeWebURL': true,
-            'xforceURL': true,
-            'talosURL': true,
-            'avURL': true,
-            'speedguidePort': true,
-            'ianaPort': true,
-            'sansPort': true,
-            'theme': 'Dark'
-        };
-
-        storage.sync.set(defaultOptions).then(function() {
-        }).catch(function(error) {
-        });
-    } else if (details.reason == "update") {
-    }
-});
-
-namespace.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    identifyInput(request.input)
-        .then(() => sendResponse({}))
-        .catch(error => sendResponse({error: error}));
-
-    return true;
-});
-
 function createContextMenu() {
     namespace.runtime.getPlatformInfo().then(function(info) {
         if (info.os !== "android") {
             namespace.contextMenus.create({
                 id: "search",
-                title: "Search OZZI for '%s'",
+                title: "Preferred Sites for '%s'",
                 contexts: ["selection"]
             });
+            namespace.contextMenus.create({
+                id: "searchAll",
+                title: "All Sites for '%s'",
+                contexts: ["selection"]
+            });
+
+            for (let type in urlMappings) {
+                namespace.contextMenus.create({
+                    id: type,
+                    title: type.toUpperCase(),
+                    contexts: ["selection"]
+                });
+
+                for (let key in urlMappings[type]) {
+                    const detailsKey = key.split(/IP|IPv6|Hash|URL|Port/)[0]; // Extract the base key
+                    if (urlMappingsDetails[detailsKey]) { // Check if the key exists in urlMappingsDetails
+                        namespace.contextMenus.create({
+                            id: key,
+                            parentId: type,
+                            title: urlMappingsDetails[detailsKey].friendlyName + " for '%s'",
+                            contexts: ["selection"],
+                            icons: {
+                                "16": urlMappingsDetails[detailsKey].icon,
+                                "48": urlMappingsDetails[detailsKey].icon,
+                                "128": urlMappingsDetails[detailsKey].icon
+                            }
+                        });
+                    } else {
+                        console.error(`Key ${detailsKey} not found in urlMappingsDetails`);
+                    }
+                }
+            }
         }
     });
 }
 
 namespace.contextMenus.onClicked.addListener(function(info, tab) {
+    let input = info.selectionText.trim();
+    let type = identifyInputType(input); 
+
     if (info.menuItemId === "search") {
-        let input = info.selectionText.trim();
-        identifyInput(input)
-            .catch(error => {
-                console.log(error); // Log the error to the console
-                let errorUrl = `error.html?input=${encodeURIComponent(input)}`;
-                namespace.windows.create({
-                    url: errorUrl,
-                    type: 'popup',
-                    width: 400,
-                    height: 200
-                });
-            });
+        identifyInput(input, 'user')
+            .catch(handleError(input));
+    } else if (info.menuItemId === "searchAll") {
+        identifyInput(input, 'all')
+            .catch(handleError(input));
+    } else if (urlMappings[type] && urlMappings[type].hasOwnProperty(info.menuItemId)) {
+        identifyInput(input, 'specific', info.menuItemId)
+            .catch(handleError(input));
+    } else {
+        console.log("The selected text does not match the type for the clicked menu item."); 
     }
 });
 

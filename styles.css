@@ -14,7 +14,6 @@ body {
 body#optionsBody {
     min-width: 725px;
 }
-
 .search-container, .input-container {
     justify-content: center;
     width: 100%;

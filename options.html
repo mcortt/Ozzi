@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body id="optionsBody">
-    <h1>Options</h1>
     <h3>Select which OSINT sources you would like to use.</h3>
     <form id="optionsForm" accept-charset="UTF-8">
         <div class="row">
@@ -40,6 +39,22 @@
                     <input type="checkbox" id="avIP">
                     <label for="avIP">AlienVault</label>
                 </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="threatminerIP">
+                    <label for="threatminerIP">ThreatMiner</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="arinIP">
+                    <label for="arinIP">ARIN Lookup</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="shodanIP">
+                    <label for="shodanIP">Shodan</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="pulseIP">
+                    <label for="pulseIP">Pulsedive</label>
+                </div>
             </div>
             <div class="column">
                 <h2>IPv6</h2>
@@ -67,6 +82,14 @@
                     <input type="checkbox" id="avIPv6">
                     <label for="avIPv6">AlienVault</label>
                 </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="arinIPv6">
+                    <label for="arinIPv6">ARIN Lookup</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="pulseIPv6">
+                    <label for="pulseIPv6">Pulsedive</label>
+                </div>
             </div>
             <div class="column">
                 <h2>Hash</h2>
@@ -89,6 +112,14 @@
                 <div class="checkbox-container">
                     <input type="checkbox" id="avHash">
                     <label for="avHash">AlienVault</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="threatminerHash">
+                    <label for="threatminerHash">ThreatMiner</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="urlhausHash">
+                    <label for="urlhausHash">URLHaus</label>
                 </div>
             </div>
             <div class="column">
@@ -116,6 +147,18 @@
                 <div class="checkbox-container">
                     <input type="checkbox" id="avURL">
                     <label for="avURL">AlienVault</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="shodanURL">
+                    <label for="shodanURL">Shodan</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="urlhausURL">
+                    <label for="urlhausURL">URLHaus</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="pulseURL">
+                    <label for="pulseURL">Pulsedive</label>
                 </div>
             </div>
             <div class="column">
