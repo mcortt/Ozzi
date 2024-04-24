@@ -113,7 +113,7 @@ const urlMappingsDetails = {
     },
     safeWeb: {
         friendlyName: "Norton Safe Web",
-        icon: "icons/safeweb.png"
+        icon: "icons/norton.png"
     },
     sucuri: {
         friendlyName: "Sucuri SiteCheck",
@@ -257,16 +257,6 @@ const patterns = {
     '(\\#[-a-z\\d_]*)?$','i')
 }
 
-function identifyInputType(input) {
-    for (let type in patterns) {
-        if (patterns[type].test(input)) {
-            return type;
-        }
-    }
-
-    return null;
-}
-
 function createUrl(type, key, value) {
     let url = urlMappings[type][key];
     if (type === 'url') {
@@ -328,7 +318,7 @@ function createContextMenu() {
             });
             namespace.contextMenus.create({
                 id: "searchLink",
-                title: "Preferred Sites for link",
+                title: "Preferred Sites for LINK",
                 contexts: ["link"]
             });
             namespace.contextMenus.create({
@@ -338,7 +328,7 @@ function createContextMenu() {
             });
             namespace.contextMenus.create({
                 id: "searchAllLink",
-                title: "All Sites for link",
+                title: "All Sites for LINK",
                 contexts: ["link"]
             });
 
@@ -379,7 +369,6 @@ namespace.contextMenus.onClicked.addListener((info, tab) => {
     } else {
         input = info.selectionText.trim();
     }
-    const type = identifyInputType(input); 
 
     if (info.menuItemId === "searchSelection") {
         identifyInput(input, 'user')
@@ -397,7 +386,7 @@ namespace.contextMenus.onClicked.addListener((info, tab) => {
         identifyInput(input, 'specific', info.menuItemId)
             .catch(handleError(input));
     } else {
-        console.log("The selected text does not match the type for the clicked menu item."); 
+        handleError(input)("The selected text does not match the type for the clicked menu item."); 
     }
 });
 
