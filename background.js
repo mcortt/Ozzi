@@ -273,6 +273,8 @@ function createUrl(type, key, value) {
         } else {
             url += value;
         }
+    } else if (type === 'hash' || type === 'port') {
+        url += value;
     }
     return url;
 }
