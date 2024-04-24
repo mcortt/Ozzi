@@ -257,6 +257,16 @@ const patterns = {
     '(\\#[-a-z\\d_]*)?$','i')
 }
 
+function identifyInputType(input) {
+    for (let type in patterns) {
+        if (patterns[type].test(input)) {
+            return type;
+        }
+    }
+
+    return null;
+}
+
 function createUrl(type, key, value) {
     let url = urlMappings[type][key];
     if (type === 'url') {
@@ -371,6 +381,7 @@ namespace.contextMenus.onClicked.addListener((info, tab) => {
     } else {
         input = info.selectionText.trim();
     }
+    const type = identifyInputType(input); 
 
     if (info.menuItemId === "searchSelection") {
         identifyInput(input, 'user')
