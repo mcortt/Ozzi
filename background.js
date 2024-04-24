@@ -9,13 +9,8 @@ d)).finalize(c)}}});var w=f.algo={};return f}(Math);
 c[d+n]|0;else{var r=a[n-15],g=a[n-2];a[n]=((r<<25|r>>>7)^(r<<14|r>>>18)^r>>>3)+a[n-7]+((g<<15|g>>>17)^(g<<13|g>>>19)^g>>>10)+a[n-16]}r=l+((p<<26|p>>>6)^(p<<21|p>>>11)^(p<<7|p>>>25))+(p&j^~p&k)+q[n]+a[n];g=((e<<30|e>>>2)^(e<<19|e>>>13)^(e<<10|e>>>22))+(e&f^e&m^f&m);l=k;k=j;j=p;p=h+r|0;h=m;m=f;f=e;e=r+g|0}b[0]=b[0]+e|0;b[1]=b[1]+f|0;b[2]=b[2]+m|0;b[3]=b[3]+h|0;b[4]=b[4]+p|0;b[5]=b[5]+j|0;b[6]=b[6]+k|0;b[7]=b[7]+l|0},_doFinalize:function(){var a=this._data,d=a.words,b=8*this._nDataBytes,e=8*a.sigBytes;
 d[e>>>5]|=128<<24-e%32;d[(e+64>>>9<<4)+14]=h.floor(b/4294967296);d[(e+64>>>9<<4)+15]=b;a.sigBytes=4*d.length;this._process();return this._hash},clone:function(){var a=g.clone.call(this);a._hash=this._hash.clone();return a}});s.SHA256=g._createHelper(f);s.HmacSHA256=g._createHmacHelper(f)})(Math);
 
-let namespace;
-if (typeof browser !== "undefined") {
-    namespace = browser;
-} else {
-    namespace = chrome;
-}
-let storage = namespace.storage;
+const namespace = typeof browser !== "undefined" ? browser : chrome;
+const storage = namespace.storage;
 
 const urlMappings = {
     ip: {
@@ -141,7 +136,7 @@ const urlMappingsDetails = {
 
 namespace.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") {
-        let defaultOptions = {
+        const defaultOptions = {
             'virustotalIP': true,
             'scamalyticsIP': true,
             'abuseipdbIP': true,
@@ -190,17 +185,17 @@ namespace.runtime.onInstalled.addListener(function(details) {
     }
 });
 
-namespace.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    identifyInput(request.input, 'user')
-        .then(() => sendResponse({}))
-        .catch(error => sendResponse({error: error}));
-
+namespace.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+    try {
+        await identifyInput(request.input, 'user');
+        sendResponse({});
+    } catch (error) {
+        sendResponse({error: error});
+    }
     return true;
 });
 
-let options = {};
-
-function getOptions() {
+async function getOptions() {
     return new Promise((resolve, reject) => {
         storage.sync.get(Object.keys(urlMappings).flatMap(key => Object.keys(urlMappings[key])), function(result) {
             if (namespace.runtime.lastError) {
@@ -213,21 +208,18 @@ function getOptions() {
     });
 }
 
-
-function handleError(input) {
-    return function(error) {
-        console.log(error); 
-        let errorUrl = `error.html?input=${encodeURIComponent(input)}`;
-        namespace.windows.create({
-            url: errorUrl,
-            type: 'popup',
-            width: 400,
-            height: 200
-        });
-    }
+const handleError = (input) => (error) => {
+    console.error(error); 
+    const errorUrl = `error.html?input=${encodeURIComponent(input)}`;
+    namespace.windows.create({
+        url: errorUrl,
+        type: 'popup',
+        width: 400,
+        height: 200
+    });
 }
 
-function createTab(url) {
+async function createTab(url) {
     return new Promise((resolve, reject) => {
         namespace.tabs.create({
             active: false,
@@ -252,21 +244,20 @@ function addHttp(url) {
     }
     return url;
 }
+const patterns = {
+    ip: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
+    ipv6: /^([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])$/,
+    hash: /^([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64})$/,
+    port: /^([0-9]{1,5})$/,
+    url: new RegExp('^(https?:\\/\\/)?'+ 
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ 
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ 
+    '(\\#[-a-z\\d_]*)?$','i')
+}
 
 function identifyInputType(input) {
-    const patterns = {
-        ip: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
-        ipv6: /^([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])$/,
-        hash: /^([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64})$/,
-        port: /^([0-9]{1,5})$/,
-        url: new RegExp('^(https?:\\/\\/)?'+ 
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ 
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ 
-        '(\\#[-a-z\\d_]*)?$','i')
-    };
-
     for (let type in patterns) {
         if (patterns[type].test(input)) {
             return type;
@@ -276,26 +267,31 @@ function identifyInputType(input) {
     return null;
 }
 
+function createUrl(type, key, value) {
+    let url = urlMappings[type][key];
+    if (type === 'url') {
+        if (key === 'virustotalURL') {
+            url += CryptoJS.SHA256(addHttp(value)) + '/detection';
+        } else if (key === 'pulseURL') {
+            url += btoa(addHttp(value));
+        } else {
+            url += addHttp(value);
+        }
+    } else if (type === 'ip' || type === 'ipv6') {
+        if (key === 'pulseIP' || key === 'pulseIPv6') {
+            url += btoa(value);
+        } else {
+            url += value;
+        }
+    }
+    return url;
+}
+
 function search(type, value, searchType, specificSite) {
     if (value) {
         for (let key in urlMappings[type]) {
             if ((searchType === 'all') || (searchType === 'user' && options[key]) || (searchType === 'specific' && key === specificSite)) {
-                let url = urlMappings[type][key] + value;
-                if (type === 'url') {
-                    if (key === 'virustotalURL') {
-                        url = urlMappings[type][key] + CryptoJS.SHA256(addHttp(value)) + '/detection';
-                    } else if (key === 'pulseURL') {
-                        url = urlMappings[type][key] + btoa(addHttp(value));
-                    } else {
-                        url = urlMappings[type][key] + addHttp(value);
-                    }
-                } else if (type === 'ip' || type === 'ipv6') {
-                    if (key === 'pulseIP' || key === 'pulseIPv6') {
-                        url = urlMappings[type][key] + btoa(value);
-                    } else {
-                        url = urlMappings[type][key] + value;
-                    }
-                }
+                const url = createUrl(type, key, value);
                 createTab(url);
             }
         }
@@ -309,21 +305,8 @@ async function identifyInput(input, searchType, specificSite) {
         input = input.replace(/\[\.\]/g, '.').replace(/hxxp/g, 'http');
     }
 
-    const patterns = {
-        ip: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
-        ipv6: /^([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])$/,
-        hash: /^([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64})$/,
-        port: /^([0-9]{1,5})$/,
-        url: new RegExp('^(https?:\\/\\/)?'+ 
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ 
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ 
-        '(\\#[-a-z\\d_]*)?$','i')
-    };
-
     return new Promise((resolve, reject) => {
-        for (let type in patterns) {
+        for (const type in patterns) {
             if (patterns[type].test(input)) {
                 search(type, input, searchType, specificSite);
                 resolve();
@@ -339,14 +322,24 @@ function createContextMenu() {
     namespace.runtime.getPlatformInfo().then(function(info) {
         if (info.os !== "android") {
             namespace.contextMenus.create({
-                id: "search",
+                id: "searchSelection",
                 title: "Preferred Sites for '%s'",
                 contexts: ["selection"]
             });
             namespace.contextMenus.create({
-                id: "searchAll",
+                id: "searchLink",
+                title: "Preferred Sites for link",
+                contexts: ["link"]
+            });
+            namespace.contextMenus.create({
+                id: "searchAllSelection",
                 title: "All Sites for '%s'",
                 contexts: ["selection"]
+            });
+            namespace.contextMenus.create({
+                id: "searchAllLink",
+                title: "All Sites for link",
+                contexts: ["link"]
             });
 
             for (let type in urlMappings) {
@@ -357,13 +350,13 @@ function createContextMenu() {
                 });
 
                 for (let key in urlMappings[type]) {
-                    const detailsKey = key.split(/IP|IPv6|Hash|URL|Port/)[0]; // Extract the base key
-                    if (urlMappingsDetails[detailsKey]) { // Check if the key exists in urlMappingsDetails
+                    const detailsKey = key.split(/IP|IPv6|Hash|URL|Port/)[0]; 
+                    if (urlMappingsDetails[detailsKey]) { 
                         namespace.contextMenus.create({
                             id: key,
                             parentId: type,
                             title: urlMappingsDetails[detailsKey].friendlyName + " for '%s'",
-                            contexts: ["selection"],
+                            contexts: ["selection", "link"],
                             icons: {
                                 "16": urlMappingsDetails[detailsKey].icon,
                                 "48": urlMappingsDetails[detailsKey].icon,
@@ -379,14 +372,25 @@ function createContextMenu() {
     });
 }
 
-namespace.contextMenus.onClicked.addListener(function(info, tab) {
-    let input = info.selectionText.trim();
-    let type = identifyInputType(input); 
+namespace.contextMenus.onClicked.addListener((info, tab) => {
+    let input;
+    if (info.linkUrl) {
+        input = info.linkUrl;
+    } else {
+        input = info.selectionText.trim();
+    }
+    const type = identifyInputType(input); 
 
-    if (info.menuItemId === "search") {
+    if (info.menuItemId === "searchSelection") {
         identifyInput(input, 'user')
             .catch(handleError(input));
-    } else if (info.menuItemId === "searchAll") {
+    } else if (info.menuItemId === "searchAllSelection") {
+        identifyInput(input, 'all')
+            .catch(handleError(input));
+    } else if (info.menuItemId === "searchLink") {
+        identifyInput(input, 'user')
+            .catch(handleError(input));
+    } else if (info.menuItemId === "searchAllLink") {
         identifyInput(input, 'all')
             .catch(handleError(input));
     } else if (urlMappings[type] && urlMappings[type].hasOwnProperty(info.menuItemId)) {
